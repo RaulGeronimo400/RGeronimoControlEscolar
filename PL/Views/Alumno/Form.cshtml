@@ -1,0 +1,77 @@
+﻿@model ML.Alumno
+@{
+    ViewBag.Title = "Form";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <div class="row">
+        @if (Model.IdAlumno == 0)
+        {
+            <h2>Nuevo Alumno</h2>
+        }
+        else
+        {
+            <h2>Actualizar Alumno</h2>
+        }
+        <p>Ingrese los datos del Alumno.</p>
+        <hr />
+    </div>
+    <div class="col-md-12">
+        @using (Html.BeginForm("Form", "Alumno", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            <form>
+                <div class="col-md-4">
+                    <!-- IdAlumno -->
+                    <div class="form-group hidden">
+                        @Html.LabelFor(model => model.IdAlumno)
+                        @Html.TextBoxFor(model => model.IdAlumno, new { @class = "form-control", @readonly = "true" })
+                    </div>
+
+                    <!-- Nombre -->
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Nombre)
+                        @Html.TextBoxFor(model => model.Nombre, new { @class = "form-control", @onkeypress = "return ValidarSoloLetras(event, 'lblNombre')", @placeholder = "Nombre(s)" })
+                        @Html.ValidationMessageFor(model => model.Nombre, null, new { @id = "lblNombre", @class = "text-danger" })
+                    </div>
+
+                    <!-- Apellido Paterno -->
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.ApellidoPaterno)
+                        @Html.TextBoxFor(model => model.ApellidoPaterno, new { @class = "form-control", @onkeypress = "return ValidarSoloLetras(event, 'lblPaterno')", @placeholder = "Apellido Paterno" })
+                        @Html.ValidationMessageFor(model => model.ApellidoPaterno, null, new { @id = "lblPaterno", @class = "text-danger" })
+                    </div>
+
+                    <!-- Apellido Materno -->
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.ApellidoMaterno)
+                        @Html.TextBoxFor(model => model.ApellidoMaterno, new { @class = "form-control", @onkeypress = "return ValidarSoloLetras(event, 'lblMaterno')", @placeholder = "Apellido Materno" })
+                        @Html.ValidationMessageFor(model => model.ApellidoMaterno, null, new { @id = "lblMaterno", @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="col-lg-12">
+                    <div class="btn-group">
+                        <button type="submit" class="btn btn-success">Aceptar</button>
+                        @Html.ActionLink("Regresar", "GetAll", "Alumno", new { @class = "btn btn-danger" })
+                    </div>
+                </div>
+            </form>
+        }
+    </div>
+</div>
+
+<script>
+    // SOLO LETRAS
+    function ValidarSoloLetras(event, controlId) {
+        var letra = event.key;
+        var regexLetters = /^[a-zA-ZÀ-ÿ\s]*$/;
+        if (regexLetters.test(letra)) {
+            $('#' + controlId).text("");
+            return true;
+        } else {
+            $('#' + controlId).text("Solo acepta letras");
+            $('#' + controlId).css({ "color": "red" });
+            return false;
+        }
+    }
+</script>

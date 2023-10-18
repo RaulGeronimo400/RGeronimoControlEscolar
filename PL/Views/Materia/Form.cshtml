@@ -1,0 +1,57 @@
+﻿@model ML.Materia
+@{
+    ViewBag.Title = "Form";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <div class="row">
+        @if (Model.IdMateria == 0)
+        {
+            <h2>Nueva Materia</h2>
+        }
+        else
+        {
+            <h2>Actualizar Materia</h2>
+        }
+        <p>Ingrese los datos de la Materia.</p>
+        <hr>
+    </div>
+    <div class="col-md-12">
+        @using (Html.BeginForm("Form", "Materia", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            <form>
+                <div class="col-md-4">
+
+                    <!-- IdMateria -->
+                    <div class="form-group hidden">
+                        @Html.LabelFor(model => model.IdMateria)
+                        @Html.TextBoxFor(model => model.IdMateria, new { @class = "form-control", @readonly = "true" })
+                    </div>
+
+                    <!-- Nombre -->
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Nombre)
+                        @Html.TextBoxFor(model => model.Nombre, new { @class = " form-control", @placeholder = "Nombre de la Materia:" })
+                    </div>
+
+                    <!-- Costo -->
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Costo)
+                        @Html.TextBoxFor(model => model.Costo, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Costo, null, new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <!-- Botones -->
+                <div class="col-lg-12">
+                    <div class="btn-group">
+                        <button type="submit" class="btn btn-success">Aceptar</button>
+
+                        @Html.ActionLink("Regresar", "GetAll", "Materia", new { @class = "btn btn-danger" })
+                    </div>
+                </div>
+            </form>
+        }
+    </div>
+</div>
