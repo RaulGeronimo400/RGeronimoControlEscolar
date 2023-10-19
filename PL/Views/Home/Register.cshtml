@@ -10,18 +10,19 @@
     <meta name="viewport" content="width=device-width" />
     <title>Login</title>
     <link href='http://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" type="text/css" href="~/Content/Styles.css"> 
+    <link rel="stylesheet" type="text/css" href="~/Content/Styles.css">
 </head>
 <body>
     <div class="logo"></div>
     <div class="login-block">
-        <h1>Login</h1>
-        @using (Html.BeginForm("Login", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        <h1>Register</h1>
+        @using (Html.BeginForm("Register", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
         {
             @Html.TextBoxFor(model => model.Nombre, new { @placeholder = "Username", @id = "username" })
             @Html.TextBoxFor(model => model.Password, new { @placeholder = "Password", @id = "password", @type = "password" })
             <button>Submit</button>
-            <a href="@Url.Action("Register","Home")"><input type="button" value="Registrar" class="register"/></a>
+            <a href="@Url.Action("Login","Home")"><input type="button" value="Regresar" class="register" /></a>
+
         }
     </div>
 </body>

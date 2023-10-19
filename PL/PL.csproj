@@ -137,6 +137,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
+    <Compile Include="Connected Services\ServiceLogin\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
     <Compile Include="Controllers\AlumnoController.cs" />
     <Compile Include="Controllers\AlumnoMateriaController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -157,10 +162,21 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
+    <None Include="Connected Services\ServiceLogin\Login.disco" />
+    <None Include="Connected Services\ServiceLogin\configuration91.svcinfo" />
+    <None Include="Connected Services\ServiceLogin\configuration.svcinfo" />
+    <Content Include="Connected Services\ServiceLogin\PL.ServiceLogin.Result.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <None Include="Connected Services\ServiceLogin\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Styles.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -184,6 +200,25 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="Connected Services\ServiceAlumno\Alumno5.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\ServiceLogin\Login.wsdl" />
+    <None Include="Connected Services\ServiceLogin\Login.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\ServiceLogin\Login1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\ServiceLogin\Login2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\ServiceLogin\Login3.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\ServiceLogin\Login4.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\ServiceLogin\Login5.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
@@ -222,6 +257,8 @@
     <Content Include="Views\AlumnoMateria\GetMateriasNoAsignadasByIdAlumno.cshtml" />
     <Content Include="Views\AlumnoMateria\Modal.cshtml" />
     <Content Include="Views\Home\Login.cshtml" />
+    <Content Include="Views\Home\Register.cshtml" />
+    <Content Include="Views\Home\Modal.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -255,6 +292,7 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadataStorage Include="Connected Services\ServiceAlumno\" />
+    <WCFMetadataStorage Include="Connected Services\ServiceLogin\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@model ML.Usuario
+<!DOCTYPE html>
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -22,11 +23,12 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <!--<li>@Html.ActionLink("Acerca de", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contacto", "Contact", "Home")</li>-->
                     <li>@Html.ActionLink("Alumno", "GetAll", "Alumno")</li>
                     <li>@Html.ActionLink("Materia", "GetAll", "Materia")</li>
                     <li>@Html.ActionLink("Asignar Materias", "AlumnoGetAll", "AlumnoMateria")</li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li>@Html.ActionLink("Cerrar Sesion", "Login", "home")</li>
                 </ul>
             </div>
         </div>

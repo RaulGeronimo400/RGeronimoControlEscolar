@@ -28,8 +28,8 @@ namespace DL
         }
     
         public virtual DbSet<Alumno> Alumnoes { get; set; }
-        public virtual DbSet<Materia> Materias { get; set; }
         public virtual DbSet<AlumnoMateria> AlumnoMaterias { get; set; }
+        public virtual DbSet<Materia> Materias { get; set; }
         public virtual DbSet<Usuario> Usuarios { get; set; }
     
         public virtual int AlumnoAdd(string nombre, string apellidoPaterno, string apellidoMaterno)
@@ -92,11 +92,6 @@ namespace DL
                 new ObjectParameter("IdAlumnoMateria", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("AlumnoMateriaDelete", idAlumnoMateriaParameter);
-        }
-    
-        public virtual ObjectResult<AlumnoMateriaGetAll_Result> AlumnoMateriaGetAll()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<AlumnoMateriaGetAll_Result>("AlumnoMateriaGetAll");
         }
     
         public virtual int AlumnoUpdate(string nombre, string apellidoPaterno, string apellidoMaterno, Nullable<int> idAlumno)

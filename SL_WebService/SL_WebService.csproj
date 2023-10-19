@@ -72,6 +72,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Alumno.svc" />
+    <Content Include="Login.svc" />
     <Content Include="Service1.svc" />
     <Content Include="Web.config" />
   </ItemGroup>
@@ -80,6 +81,10 @@
       <DependentUpon>Alumno.svc</DependentUpon>
     </Compile>
     <Compile Include="IAlumno.cs" />
+    <Compile Include="ILogin.cs" />
+    <Compile Include="Login.svc.cs">
+      <DependentUpon>Login.svc</DependentUpon>
+    </Compile>
     <Compile Include="Result.cs" />
     <Compile Include="Service1.svc.cs">
       <DependentUpon>Service1.svc</DependentUpon>

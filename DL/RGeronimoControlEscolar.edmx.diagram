@@ -4,13 +4,13 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="cc8fd0d1c46c4bc696e544ffb1816c85" Name="Diagram1">
-        <EntityTypeShape EntityType="RGeronimoControlEscolarModel.Alumno" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="RGeronimoControlEscolarModel.Materia" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="RGeronimoControlEscolarModel.AlumnoMateria" Width="1.5" PointX="5" PointY="0.75" />
-        <AssociationConnector Association="RGeronimoControlEscolarModel.FK_AlumnoMateria_Alumno" />
-        <AssociationConnector Association="RGeronimoControlEscolarModel.FK_AlumnoMateria_Materia" />
-        <EntityTypeShape EntityType="RGeronimoControlEscolarModel.Usuario" Width="1.5" PointX="0.75" PointY="3.75" />
+      <Diagram DiagramId="5c295d4a10074e5a8aee27c14b321d58" Name="Diagram1">
+        <EntityTypeShape EntityType="RGeronimoControlEscolarModel.Alumno" Width="1.5" PointX="0.75" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="RGeronimoControlEscolarModel.AlumnoMateria" Width="1.5" PointX="3" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="RGeronimoControlEscolarModel.Materia" Width="1.5" PointX="0.75" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="RGeronimoControlEscolarModel.Usuario" Width="1.5" PointX="2.75" PointY="3.75" IsExpanded="true" />
+        <AssociationConnector Association="RGeronimoControlEscolarModel.FK_AlumnoMateria_Alumno" ManuallyRouted="false" />
+        <AssociationConnector Association="RGeronimoControlEscolarModel.FK_AlumnoMateria_Materia" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="RGeronimoControlEscolarModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="RGeronimoControlEscolarModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Alumno">
           <Key>
             <PropertyRef Name="IdAlumno" />
@@ -131,7 +131,8 @@
             <End Role="AlumnoMateria" EntitySet="AlumnoMateria" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="RGeronimoControlEscolarModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -143,7 +144,17 @@
           <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="ApellidoPaterno" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="ApellidoMaterno" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="AlumnoMaterias" Relationship="RGeronimoControlEscolarModel.FK_AlumnoMateria_Alumno" FromRole="Alumno" ToRole="AlumnoMateria" />
+          <NavigationProperty Name="AlumnoMaterias" Relationship="Self.FK_AlumnoMateria_Alumno" FromRole="Alumno" ToRole="AlumnoMateria" />
+        </EntityType>
+        <EntityType Name="AlumnoMateria">
+          <Key>
+            <PropertyRef Name="IdAlumnoMateria" />
+          </Key>
+          <Property Name="IdAlumnoMateria" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdAlumno" Type="Int32" />
+          <Property Name="IdMateria" Type="Int32" />
+          <NavigationProperty Name="Alumno" Relationship="Self.FK_AlumnoMateria_Alumno" FromRole="AlumnoMateria" ToRole="Alumno" />
+          <NavigationProperty Name="Materia" Relationship="Self.FK_AlumnoMateria_Materia" FromRole="AlumnoMateria" ToRole="Materia" />
         </EntityType>
         <EntityType Name="Materia">
           <Key>
@@ -152,91 +163,19 @@
           <Property Name="IdMateria" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Costo" Type="Decimal" Precision="18" Scale="0" />
-          <NavigationProperty Name="AlumnoMaterias" Relationship="RGeronimoControlEscolarModel.FK_AlumnoMateria_Materia" FromRole="Materia" ToRole="AlumnoMateria" />
+          <NavigationProperty Name="AlumnoMaterias" Relationship="Self.FK_AlumnoMateria_Materia" FromRole="Materia" ToRole="AlumnoMateria" />
         </EntityType>
-        <EntityContainer Name="RGeronimoControlEscolarEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Alumnoes" EntityType="Self.Alumno" />
-          <EntitySet Name="Materias" EntityType="Self.Materia" />
-          <EntitySet Name="AlumnoMaterias" EntityType="RGeronimoControlEscolarModel.AlumnoMateria" />
-          <AssociationSet Name="FK_AlumnoMateria_Alumno" Association="RGeronimoControlEscolarModel.FK_AlumnoMateria_Alumno">
-            <End Role="Alumno" EntitySet="Alumnoes" />
-            <End Role="AlumnoMateria" EntitySet="AlumnoMaterias" />
-          </AssociationSet>
-          <AssociationSet Name="FK_AlumnoMateria_Materia" Association="RGeronimoControlEscolarModel.FK_AlumnoMateria_Materia">
-            <End Role="Materia" EntitySet="Materias" />
-            <End Role="AlumnoMateria" EntitySet="AlumnoMaterias" />
-          </AssociationSet>
-          <FunctionImport Name="AlumnoAdd">
-            <Parameter Name="Nombre" Mode="In" Type="String" />
-            <Parameter Name="ApellidoPaterno" Mode="In" Type="String" />
-            <Parameter Name="ApellidoMaterno" Mode="In" Type="String" />
-          </FunctionImport>
-          <FunctionImport Name="AlumnoDelete">
-          <Parameter Name="IdAlumno" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="AlumnoGetAll" ReturnType="Collection(RGeronimoControlEscolarModel.AlumnoGetAll_Result)" />
-          <FunctionImport Name="AlumnoGetById" ReturnType="Collection(RGeronimoControlEscolarModel.AlumnoGetById_Result)">
-          <Parameter Name="IdAlumno" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="AlumnoMateriaAdd">
-            <Parameter Name="IdAlumno" Mode="In" Type="Int32" />
-            <Parameter Name="IdMateria" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="AlumnoMateriaDelete">
-          <Parameter Name="IdAlumnoMateria" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="AlumnoMateriaGetAll" ReturnType="Collection(RGeronimoControlEscolarModel.AlumnoMateriaGetAll_Result)" />
-          <FunctionImport Name="AlumnoUpdate">
-            <Parameter Name="Nombre" Mode="In" Type="String" />
-            <Parameter Name="ApellidoPaterno" Mode="In" Type="String" />
-            <Parameter Name="ApellidoMaterno" Mode="In" Type="String" />
-            <Parameter Name="IdAlumno" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="GetMateriasAsignadasByIdAlumno" ReturnType="Collection(RGeronimoControlEscolarModel.GetMateriasAsignadasByIdAlumno_Result)">
-          <Parameter Name="IdAlumno" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="GetMateriasNoAsignadasByIdAlumno" ReturnType="Collection(RGeronimoControlEscolarModel.GetMateriasNoAsignadasByIdAlumno_Result)">
-          <Parameter Name="IdAlumno" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="MateriaAdd">
-            <Parameter Name="Nombre" Mode="In" Type="String" />
-            <Parameter Name="Costo" Mode="In" Type="Decimal" />
-          </FunctionImport>
-          <FunctionImport Name="MateriaDelete">
-          <Parameter Name="IdMateria" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="MateriaGetAll" ReturnType="Collection(RGeronimoControlEscolarModel.MateriaGetAll_Result)" />
-          <FunctionImport Name="MateriaGetById" ReturnType="Collection(RGeronimoControlEscolarModel.MateriaGetById_Result)">
-          <Parameter Name="IdMateria" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="MateriaUpdate">
-            <Parameter Name="Nombre" Mode="In" Type="String" />
-            <Parameter Name="Costo" Mode="In" Type="Decimal" />
-            <Parameter Name="IdMateria" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <EntitySet Name="Usuarios" EntityType="RGeronimoControlEscolarModel.Usuario" />
-          <FunctionImport Name="UsuarioAdd">
-            <Parameter Name="Usuario" Mode="In" Type="String" />
-            <Parameter Name="Password" Mode="In" Type="String" />
-          </FunctionImport>
-          <FunctionImport Name="UsuarioGetByNombrePassword" ReturnType="Collection(RGeronimoControlEscolarModel.UsuarioGetByNombrePassword_Result)">
-            <Parameter Name="Usuario" Mode="In" Type="String" />
-            <Parameter Name="Password" Mode="In" Type="String" />
-          </FunctionImport>
-        </EntityContainer>
-        <EntityType Name="AlumnoMateria">
+        <EntityType Name="Usuario">
           <Key>
-            <PropertyRef Name="IdAlumnoMateria" />
+            <PropertyRef Name="IdUsuario" />
           </Key>
-          <Property Name="IdAlumnoMateria" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="IdAlumno" Type="Int32" />
-          <Property Name="IdMateria" Type="Int32" />
-          <NavigationProperty Name="Alumno" Relationship="RGeronimoControlEscolarModel.FK_AlumnoMateria_Alumno" FromRole="AlumnoMateria" ToRole="Alumno" />
-          <NavigationProperty Name="Materia" Relationship="RGeronimoControlEscolarModel.FK_AlumnoMateria_Materia" FromRole="AlumnoMateria" ToRole="Materia" />
+          <Property Name="IdUsuario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Usuario1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <Association Name="FK_AlumnoMateria_Alumno">
-          <End Type="RGeronimoControlEscolarModel.Alumno" Role="Alumno" Multiplicity="0..1" />
-          <End Type="RGeronimoControlEscolarModel.AlumnoMateria" Role="AlumnoMateria" Multiplicity="*" />
+          <End Role="Alumno" Type="Self.Alumno" Multiplicity="0..1" />
+          <End Role="AlumnoMateria" Type="Self.AlumnoMateria" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Alumno">
               <PropertyRef Name="IdAlumno" />
@@ -247,8 +186,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_AlumnoMateria_Materia">
-          <End Type="RGeronimoControlEscolarModel.Materia" Role="Materia" Multiplicity="0..1" />
-          <End Type="RGeronimoControlEscolarModel.AlumnoMateria" Role="AlumnoMateria" Multiplicity="*" />
+          <End Role="Materia" Type="Self.Materia" Multiplicity="0..1" />
+          <End Role="AlumnoMateria" Type="Self.AlumnoMateria" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Materia">
               <PropertyRef Name="IdMateria" />
@@ -258,6 +197,75 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityContainer Name="RGeronimoControlEscolarEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Alumnoes" EntityType="Self.Alumno" />
+          <EntitySet Name="AlumnoMaterias" EntityType="Self.AlumnoMateria" />
+          <EntitySet Name="Materias" EntityType="Self.Materia" />
+          <EntitySet Name="Usuarios" EntityType="Self.Usuario" />
+          <AssociationSet Name="FK_AlumnoMateria_Alumno" Association="Self.FK_AlumnoMateria_Alumno">
+            <End Role="Alumno" EntitySet="Alumnoes" />
+            <End Role="AlumnoMateria" EntitySet="AlumnoMaterias" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AlumnoMateria_Materia" Association="Self.FK_AlumnoMateria_Materia">
+            <End Role="Materia" EntitySet="Materias" />
+            <End Role="AlumnoMateria" EntitySet="AlumnoMaterias" />
+          </AssociationSet>
+          <FunctionImport Name="AlumnoAdd">
+            <Parameter Name="Nombre" Mode="In" Type="String" />
+            <Parameter Name="ApellidoPaterno" Mode="In" Type="String" />
+            <Parameter Name="ApellidoMaterno" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="AlumnoDelete">
+            <Parameter Name="IdAlumno" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="AlumnoGetAll" ReturnType="Collection(RGeronimoControlEscolarModel.AlumnoGetAll_Result)" />
+          <FunctionImport Name="AlumnoGetById" ReturnType="Collection(RGeronimoControlEscolarModel.AlumnoGetById_Result)">
+            <Parameter Name="IdAlumno" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="AlumnoMateriaAdd">
+            <Parameter Name="IdAlumno" Mode="In" Type="Int32" />
+            <Parameter Name="IdMateria" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="AlumnoMateriaDelete">
+            <Parameter Name="IdAlumnoMateria" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="AlumnoUpdate">
+            <Parameter Name="Nombre" Mode="In" Type="String" />
+            <Parameter Name="ApellidoPaterno" Mode="In" Type="String" />
+            <Parameter Name="ApellidoMaterno" Mode="In" Type="String" />
+            <Parameter Name="IdAlumno" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GetMateriasAsignadasByIdAlumno" ReturnType="Collection(RGeronimoControlEscolarModel.GetMateriasAsignadasByIdAlumno_Result)">
+            <Parameter Name="IdAlumno" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GetMateriasNoAsignadasByIdAlumno" ReturnType="Collection(RGeronimoControlEscolarModel.GetMateriasNoAsignadasByIdAlumno_Result)">
+            <Parameter Name="IdAlumno" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="MateriaAdd">
+            <Parameter Name="Nombre" Mode="In" Type="String" />
+            <Parameter Name="Costo" Mode="In" Type="Decimal" />
+          </FunctionImport>
+          <FunctionImport Name="MateriaDelete">
+            <Parameter Name="IdMateria" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="MateriaGetAll" ReturnType="Collection(RGeronimoControlEscolarModel.MateriaGetAll_Result)" />
+          <FunctionImport Name="MateriaGetById" ReturnType="Collection(RGeronimoControlEscolarModel.MateriaGetById_Result)">
+            <Parameter Name="IdMateria" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="MateriaUpdate">
+            <Parameter Name="Nombre" Mode="In" Type="String" />
+            <Parameter Name="Costo" Mode="In" Type="Decimal" />
+            <Parameter Name="IdMateria" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="UsuarioAdd">
+            <Parameter Name="Usuario" Mode="In" Type="String" />
+            <Parameter Name="Password" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="UsuarioGetByNombrePassword" ReturnType="Collection(RGeronimoControlEscolarModel.UsuarioGetByNombrePassword_Result)">
+            <Parameter Name="Usuario" Mode="In" Type="String" />
+            <Parameter Name="Password" Mode="In" Type="String" />
+          </FunctionImport>
+        </EntityContainer>
         <ComplexType Name="AlumnoGetAll_Result">
           <Property Type="Int32" Name="IdAlumno" Nullable="false" />
           <Property Type="String" Name="Nombre" Nullable="true" MaxLength="50" />
@@ -269,13 +277,6 @@
           <Property Type="String" Name="Nombre" Nullable="true" MaxLength="50" />
           <Property Type="String" Name="ApellidoPaterno" Nullable="true" MaxLength="50" />
           <Property Type="String" Name="ApellidoMaterno" Nullable="true" MaxLength="50" />
-        </ComplexType>
-        <ComplexType Name="AlumnoMateriaGetAll_Result">
-          <Property Type="Int32" Name="IdAlumnoMateria" Nullable="true" />
-          <Property Type="Int32" Name="IdAlumno" Nullable="false" />
-          <Property Type="String" Name="Alumno" Nullable="true" MaxLength="50" />
-          <Property Type="Int32" Name="IdMateria" Nullable="true" />
-          <Property Type="String" Name="Materia" Nullable="false" MaxLength="50" />
         </ComplexType>
         <ComplexType Name="GetMateriasAsignadasByIdAlumno_Result">
           <Property Type="Int32" Name="IdAlumnoMateria" Nullable="false" />
@@ -300,14 +301,6 @@
           <Property Type="String" Name="Nombre" Nullable="true" MaxLength="50" />
           <Property Type="Decimal" Name="Costo" Nullable="true" Precision="18" Scale="0" />
         </ComplexType>
-        <EntityType Name="Usuario">
-          <Key>
-            <PropertyRef Name="IdUsuario" />
-          </Key>
-          <Property Name="IdUsuario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Usuario1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-        </EntityType>
         <ComplexType Name="UsuarioGetByNombrePassword_Result">
           <Property Type="String" Name="Usuario" Nullable="true" MaxLength="50" />
           <Property Type="String" Name="Password" Nullable="true" MaxLength="50" />
@@ -328,6 +321,15 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="AlumnoMaterias">
+            <EntityTypeMapping TypeName="RGeronimoControlEscolarModel.AlumnoMateria">
+              <MappingFragment StoreEntitySet="AlumnoMateria">
+                <ScalarProperty Name="IdAlumnoMateria" ColumnName="IdAlumnoMateria" />
+                <ScalarProperty Name="IdAlumno" ColumnName="IdAlumno" />
+                <ScalarProperty Name="IdMateria" ColumnName="IdMateria" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Materias">
             <EntityTypeMapping TypeName="RGeronimoControlEscolarModel.Materia">
               <MappingFragment StoreEntitySet="Materia">
@@ -337,12 +339,12 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="AlumnoMaterias">
-            <EntityTypeMapping TypeName="RGeronimoControlEscolarModel.AlumnoMateria">
-              <MappingFragment StoreEntitySet="AlumnoMateria">
-                <ScalarProperty Name="IdMateria" ColumnName="IdMateria" />
-                <ScalarProperty Name="IdAlumno" ColumnName="IdAlumno" />
-                <ScalarProperty Name="IdAlumnoMateria" ColumnName="IdAlumnoMateria" />
+          <EntitySetMapping Name="Usuarios">
+            <EntityTypeMapping TypeName="RGeronimoControlEscolarModel.Usuario">
+              <MappingFragment StoreEntitySet="Usuario">
+                <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
+                <ScalarProperty Name="Usuario1" ColumnName="Usuario" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -413,15 +415,6 @@
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="MateriaUpdate" FunctionName="RGeronimoControlEscolarModel.Store.MateriaUpdate" />
-          <EntitySetMapping Name="Usuarios">
-            <EntityTypeMapping TypeName="RGeronimoControlEscolarModel.Usuario">
-              <MappingFragment StoreEntitySet="Usuario">
-                <ScalarProperty Name="Password" ColumnName="Password" />
-                <ScalarProperty Name="Usuario1" ColumnName="Usuario" />
-                <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="UsuarioAdd" FunctionName="RGeronimoControlEscolarModel.Store.UsuarioAdd" />
           <FunctionImportMapping FunctionImportName="UsuarioGetByNombrePassword" FunctionName="RGeronimoControlEscolarModel.Store.UsuarioGetByNombrePassword">
             <ResultMapping>

@@ -30,15 +30,18 @@ namespace PL.Controllers
         [HttpPost]
         public ActionResult Login(ML.Usuario usuario)
         {
-            ML.Result result = BL.Usuario.GetByNombre(usuario);
+            ServiceLogin.LoginClient service = new ServiceLogin.LoginClient();
+            var result = service.SingIn(usuario);
+            //ML.Result result = BL.Usuario.GetByNombre(usuario);
             if (result.Correct)
             {
-                //Session["Usuario"] = result.Object;
+                Session["Usuario"] = usuario.Nombre;
                 return View("Index");
             }
             else
             {
-                return View();
+                ViewBag.Message = result.ErrorMessage;
+                return PartialView("Modal");
             }
         }
 
@@ -46,6 +49,28 @@ namespace PL.Controllers
         public ActionResult Login()
         {
             return View();
+        }
+
+        [HttpGet]
+        public ActionResult Register()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Register(ML.Usuario usuario)
+        {
+            ServiceLogin.LoginClient service = new ServiceLogin.LoginClient();
+            var result = service.Registrar(usuario);
+            if (result.Correct)
+            {
+                return View("Login");
+            }
+            else
+            {
+                ViewBag.Message = result.ErrorMessage;
+                return PartialView("Modal");
+            }
         }
     }
 }

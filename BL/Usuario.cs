@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,17 +15,28 @@ namespace BL
             ML.Result result = new ML.Result();
             try
             {
-                using (DL.RGeronimoControlEscolarEntities context = new DL.RGeronimoControlEscolarEntities())
+                using(SqlConnection context = new SqlConnection(DL.Conexion.Get()))
                 {
-                    var query = context.UsuarioAdd(usuario.Nombre, usuario.Password);
-                    if (query > 0)
+                    SqlCommand cmd = context.CreateCommand();
+
+                    cmd.CommandText = "UsuarioAdd";
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Connection = context;
+
+                    cmd.Parameters.AddWithValue("@Usuario", usuario.Nombre);
+                    cmd.Parameters.AddWithValue("@Password", usuario.Password);
+
+                    context.Open();
+                    int rows = cmd.ExecuteNonQuery();
+
+                    if (rows > 0)
                     {
                         result.Correct = true;
                     }
                     else
                     {
                         result.Correct = false;
-                        result.ErrorMessage = "Ocurrio un problema al insertar el usuario";
+                        result.ErrorMessage = "Ocurrio un problema al insertar al usuario";
                     }
                 }
             }
@@ -41,18 +54,29 @@ namespace BL
             ML.Result result = new ML.Result();
             try
             {
-                using (DL.RGeronimoControlEscolarEntities context = new DL.RGeronimoControlEscolarEntities())
+                using(SqlConnection context = new SqlConnection(DL.Conexion.Get()))
                 {
-                    var query = context.UsuarioGetByNombrePassword(usuario.Nombre, usuario.Password).FirstOrDefault();
-                    if (query != null)
+                    SqlCommand cmd = new SqlCommand();
+
+                    cmd.CommandText = "UsuarioGetByNombrePassword";
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Connection = context;
+
+                    cmd.Parameters.AddWithValue("@Usuario", usuario.Nombre);
+                    cmd.Parameters.AddWithValue("@Password", usuario.Password);
+
+                    SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+                    DataTable table = new DataTable();
+                    adapter.Fill(table);
+
+                    if(table.Rows.Count > 0)
                     {
                         result.Correct = true;
-
                     }
                     else
                     {
                         result.Correct = false;
-                        result.ErrorMessage = "Usuario no registrado";
+                        result.ErrorMessage = "No se encontro el usuario";
                     }
                 }
             }
