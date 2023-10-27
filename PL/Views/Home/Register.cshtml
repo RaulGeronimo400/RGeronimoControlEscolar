@@ -15,12 +15,12 @@
 <body>
     <div class="logo"></div>
     <div class="login-block">
-        <h1>Register</h1>
+        <h1>Registro</h1>
         @using (Html.BeginForm("Register", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
         {
             @Html.TextBoxFor(model => model.Nombre, new { @placeholder = "Username", @id = "username" })
             @Html.TextBoxFor(model => model.Password, new { @placeholder = "Password", @id = "password", @type = "password" })
-            <button>Submit</button>
+            <button>Crear cuenta</button>
             <a href="@Url.Action("Login","Home")"><input type="button" value="Regresar" class="register" /></a>
 
         }
